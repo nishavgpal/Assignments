@@ -8,6 +8,17 @@
 # Program make a simple calculator
 
 # This function adds two numbers
+
+def getfloat(message):
+    while True:
+        try:
+            user = float(input(message))
+            return user
+        except ValueError:
+            print('You must enter a number')
+
+
+# Reference: http://www.easypythondocs.com/validation.html
 def add(x, y):
     return x + y
 
@@ -15,6 +26,7 @@ def add(x, y):
 # This function subtracts two numbers
 def subtract(x, y):
     return x - y
+
 
 # This function multiplies two numbers
 def multiply(x, y):
@@ -28,7 +40,6 @@ def divide(x, y):
 
 print("Select operation.")
 
-
 print("1.Add")
 print("2.Subtract")
 print("3.Multiply")
@@ -40,8 +51,8 @@ while True:
 
     # Check if choice is one of the four options
     if choice in ('1', '2', '3', '4'):
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
+        num1 = getfloat("Enter first number: ")
+        num2 = getfloat("Enter second number: ")
 
         if choice == '1':
             print(num1, "+", num2, "=", add(num1, num2))
