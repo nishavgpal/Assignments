@@ -7,16 +7,6 @@
 # Use a breakpoint in the code line below to debug your script.
 # Program make a simple calculator
 
-# This function does the validation
-
-"""def getfloat(message)
-    while True:
-        try:
-            user = float(input(message))
-            return user
-        except ValueError:
-            print('You must enter a number')"""
-
 # This function adds two numbers
 def add(x, y):
     return x + y
@@ -25,7 +15,6 @@ def add(x, y):
 # This function subtracts two numbers
 def subtract(x, y):
     return x - y
-
 
 # This function multiplies two numbers
 def multiply(x, y):
@@ -37,7 +26,8 @@ def divide(x, y):
     return x / y
 
 
-"""print("Select operation.")
+print("Select operation.")
+
 
 print("1.Add")
 print("2.Subtract")
@@ -46,12 +36,12 @@ print("4.Divide")
 
 while True:
     # Take input from the user
-   choice = input("Enter choice(1/2/3/4): ")
+    choice = input("Enter choice(1/2/3/4): ")
 
     # Check if choice is one of the four options
-   if choice in ('1', '2', '3', '4'):
-        num1 = getfloat("Enter first number: ")
-        num2 = getfloat("Enter second number: ")
+    if choice in ('1', '2', '3', '4'):
+        num1 = float(input("Enter first number: "))
+        num2 = float(input("Enter second number: "))
 
         if choice == '1':
             print(num1, "+", num2, "=", add(num1, num2))
@@ -65,9 +55,8 @@ while True:
         elif choice == '4':
             if num2 == 0:
                 print("b cannot be 0(Zero) for Division operation;Run the code again")
-
             else:
                 print(num1, "/", num2, "=", divide(num1, num2))
         break
     else:
-        print("Invalid Input;Run the code again")"""
+        print("Invalid Input;Run the code again")
