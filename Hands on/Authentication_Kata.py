@@ -52,7 +52,7 @@ r = Register()
 Stop = False
 user_check = True
 
-
+"""
 while Stop == False:
     tasks = (input('What would you like to do? enter [Register], [Login], or [quit]'))
     # Calling functions with that class object
@@ -85,4 +85,4 @@ while Stop == False:
             print("Login failed")
     if tasks == 'quit':
         print("See you later!")
-        Stop = True
+        Stop = True"""

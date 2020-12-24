@@ -45,7 +45,7 @@ class Test_Login_Validations(unittest.TestCase):
         result = Login.check(self, "test", "test12")
         self.assertTrue(result == False)
 
-    def test_validate_for_username_present_pass(self):
+    def test_validate_for_username_present_fail(self):
         result = Login.check(self, "test", "test")
         self.assertFalse(result == True)
 
