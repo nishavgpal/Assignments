@@ -10,3 +10,7 @@ class Score:
                 return frame_score[index]
             else:
                 return frame_score[index]
+        if(index>=10):
+            return False
+        if(index==9):
+            return frame_score[index]
