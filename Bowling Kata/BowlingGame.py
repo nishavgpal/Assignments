@@ -1,22 +1,7 @@
-bowling_frames = [[0 for x in range(10)] for y in range(3)]
-frame_score = [0] * 10
+bowling_frames = [[0 for x in range(10)] for y in range(4)]
+
 
 class BowlingGame():
-"""
-    def frames_count(self,count):
-
-        if (count<=9):
-            return True
-        else:
-            return False
-
-    def chances_count(self,count):
-
-        if (count <= 2):
-            return True
-        else:
-            return False
-            """
 
     def frame_score(self,frames,chances,pin_value):
 
@@ -27,13 +12,19 @@ class BowlingGame():
             if(chances<=1):
                 if (chances == 1 and bowling_frames[0][frames]+ pin_value<=10):
                     bowling_frames[chances][frames]=pin_value
-                    bowling_frames[2][frames]=bowling_frames[chances][frames]+bowling_frames[chances-1][frames]
+                    bowling_frames[2][frames] = bowling_frames[chances][frames] + bowling_frames[chances - 1][frames]
+                    bowling_frames[3][frames]= bowling_frames[3][frames-1]+bowling_frames[2][frames]
                     return True
-
-                elif ( bowling_frames[0][frames]+pin_value <= 10):
+                elif (bowling_frames[0][frames] + pin_value <= 10):
                     bowling_frames[chances][frames] = pin_value
                     bowling_frames[2][frames] = bowling_frames[chances][frames]
+                    bowling_frames[3][frames] = bowling_frames[3][frames - 1] + bowling_frames[2][frames]
                     return True
+                if(bowling_frames[2][frames-1]==10):
+                        bowling_frames[3][frames - 1] = bowling_frames[3][frames - 1] + bowling_frames[0][frames]
+                        bowling_frames[3][frames] = bowling_frames[3][frames - 1] + bowling_frames[2][frames-1]
+                if(bowling_frames[0][frames-1]==10):
+                    bowling_frames[3][frames - 1] = bowling_frames[2][frames]
 
                 else:
                     return False
@@ -42,18 +33,9 @@ class BowlingGame():
         else:
             return False
 
-    def Total_score(frame,current_frame_total):
 
-        index=frame-1
-        if index!=0:
-            current_total_score= frame_score[index-1]+current_frame_total
-            frame_score.append(current_total_score)
-            return frame_score[index]
-        else:
-            frame_score.append(current_frame_total)
-            return frame_score[index]
     def get_score(frame):
         if frame!=1:
-            return frame_score[frame-1]
+            return bowling_frames[3][frame-1]
         else:
-            return frame_score[0]
+            return bowling_frames[3][0]
