@@ -62,8 +62,8 @@ class BowlingGameTest(unittest.TestCase):
         for i in range(7):
             print(BowlingGame.get_score(i))
         self.assertEqual(60, BowlingGame.get_score(5))
-"""
-    def test_should_update_double_strike_for_last_frame_total_score(self):
+
+    def test_should_update_double_strike_for_frame_total_score(self):
         BowlingGame.frame_score(1, 1, 1)
         BowlingGame.frame_score(1, 2, 4)
         BowlingGame.frame_score(2, 1, 3)
@@ -86,7 +86,7 @@ class BowlingGameTest(unittest.TestCase):
         i = 0
         for i in range(10):
             print(BowlingGame.get_score(i))
-        self.assertEqual(79, BowlingGame.get_score(7))"""
+        #self.assertEqual(79, BowlingGame.get_score(7))
 
     def test_should_return_frame_total_score(self):
         BowlingGame.frame_score(1, 1, 1)
@@ -115,6 +115,54 @@ class BowlingGameTest(unittest.TestCase):
             print(BowlingGame.get_score(i))
         self.assertEqual(117,BowlingGame.get_score(10))
 
+def test_update_spare_at_tenth_frame(self):
+    BowlingGame.frame_score(1, 1, 1)
+    BowlingGame.frame_score(1, 2, 4)
+    BowlingGame.frame_score(2, 1, 3)
+    BowlingGame.frame_score(2, 2, 5)
+    BowlingGame.frame_score(3, 1, 4)
+    BowlingGame.frame_score(3, 2, 6)
+    BowlingGame.frame_score(4, 1, 2)
+    BowlingGame.frame_score(4, 2, 0)
+    BowlingGame.frame_score(5, 1, 10)
+    BowlingGame.frame_score(5, 2, 0)
+    BowlingGame.frame_score(6, 1, 4)
+    BowlingGame.frame_score(6, 2, 3)
+    BowlingGame.frame_score(7, 1, 10)
+    BowlingGame.frame_score(7, 2, 0)
+    BowlingGame.frame_score(8, 1, 10)
+    BowlingGame.frame_score(8, 2, 0)
+    BowlingGame.frame_score(9, 1, 5)
+    BowlingGame.frame_score(9, 2, 3)
+    BowlingGame.frame_score(10, 1, 7)
+    BowlingGame.frame_score(10, 2, 3)
+    BowlingGame.frame_score(10, 3, 10)
+    self.assertEqual(122, BowlingGame.get_score(10))
+
+def test_update_strike_at_tenth_frame(self):
+    BowlingGame.frame_score(1, 1, 1)
+    BowlingGame.frame_score(1, 2, 4)
+    BowlingGame.frame_score(2, 1, 3)
+    BowlingGame.frame_score(2, 2, 5)
+    BowlingGame.frame_score(3, 1, 4)
+    BowlingGame.frame_score(3, 2, 6)
+    BowlingGame.frame_score(4, 1, 2)
+    BowlingGame.frame_score(4, 2, 0)
+    BowlingGame.frame_score(5, 1, 10)
+    BowlingGame.frame_score(5, 2, 0)
+    BowlingGame.frame_score(6, 1, 4)
+    BowlingGame.frame_score(6, 2, 3)
+    BowlingGame.frame_score(7, 1, 10)
+    BowlingGame.frame_score(7, 2, 0)
+    BowlingGame.frame_score(8, 1, 10)
+    BowlingGame.frame_score(8, 2, 0)
+    BowlingGame.frame_score(9, 1, 5)
+    BowlingGame.frame_score(9, 2, 3)
+    BowlingGame.frame_score(10, 1, 10)
+    BowlingGame.frame_score(10, 2, 0)
+    BowlingGame.frame_score(10, 3, 5)
+    BowlingGame.frame_score(10, 4, 5)
+    self.assertEqual(122, BowlingGame.get_score(10))
 
 
 if __name__ == '__main__':
