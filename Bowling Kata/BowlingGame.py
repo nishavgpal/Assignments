@@ -1,72 +1,84 @@
-bowling_frames = [[0 for x in range(11)] for y in range(5)]
-roll1_Score = 1
-frame_roll_score = 3
-cumulative_frame_score = 4
-current_frame=1
-last_frame = current_frame - 1
-
 class BowlingGame:
 
-    def update_cumulative_score_double_strike(current_frame,bowling_frames):
+    def define_variables(self):
+        global frame_number
+        global bowling_frames
+        global frame_score_index
+        global roll_number
 
-        last_frame = current_frame - 1
-        bowling_frames[cumulative_frame_score][last_frame] = bowling_frames[cumulative_frame_score][last_frame]+bowling_frames[frame_roll_score][current_frame]
-        bowling_frames[cumulative_frame_score][current_frame] = bowling_frames[cumulative_frame_score][last_frame] + bowling_frames[frame_roll_score]
+        frame_number = 0
+        bowling_frames = [[0 for x in range(12)] for y in range(3)]
+        frame_score_index = 2
+        roll_number = 0
 
-    def update_cumulative_score_strike(current_frame,bowling_frames):
-        last_frame = current_frame - 1
-        bowling_frames[cumulative_frame_score][last_frame] = bowling_frames[cumulative_frame_score][last_frame]+bowling_frames[frame_roll_score][current_frame]
-        bowling_frames[cumulative_frame_score][current_frame] = bowling_frames[cumulative_frame_score][last_frame] + bowling_frames[frame_roll_score][current_frame]
+    def score_calculator(self, pins_knocked):
+        global roll_number
+        global frame_number
 
+        if (frame_number <= 11):
 
-    def update_cumulative_score_spare(current_frame,bowling_frames):
-        last_frame = current_frame - 1
+            bowling_frames[roll_number][frame_number] = pins_knocked
 
-        bowling_frames[cumulative_frame_score][last_frame] = bowling_frames[cumulative_frame_score][last_frame] + bowling_frames[roll1_Score][current_frame]
+            if (roll_number < 1):
 
-        bowling_frames[cumulative_frame_score][current_frame] = bowling_frames[cumulative_frame_score][last_frame] + bowling_frames[frame_roll_score][current_frame]
+                roll_number += 1
 
+                if (pins_knocked == 10):
+                    bowling_frames[roll_number][frame_number] = 0
 
+                    BowlingGame.compute_bonuses(self)
 
-    def check_spare_strike_last_frame(current_frame,current_roll_score,bowling_frames):
-        last_frame = current_frame - 1
+                    bowling_frames[frame_score_index][frame_number] = bowling_frames[frame_score_index][frame_number - 1] + bowling_frames[roll_number - 1][frame_number] + bowling_frames[roll_number][frame_number]
 
-
-        if (bowling_frames[roll1_Score][last_frame] == 10 and current_roll_score== 2):
-
-            BowlingGame.update_cumulative_score_strike(current_frame,bowling_frames)
-
-        elif(bowling_frames[frame_roll_score][last_frame] == 10 and current_roll_score== 1 and bowling_frames[roll1_Score][last_frame] != 10):
-
-            BowlingGame.update_cumulative_score_spare(current_frame,bowling_frames)
-
-
-
-
-    def frame_score(current_frame, current_roll_score, pin_value):
-
-        #roll1_Score = 1
-        #frame_roll_score = 3
-        #cumulative_frame_score = 4
-
-
-        if (current_frame <= 10):
-            last_frame = current_frame - 1
-            if (current_roll_score <= 2):
-                bowling_frames[current_roll_score][current_frame] = pin_value
-                bowling_frames[frame_roll_score][current_frame] = bowling_frames[frame_roll_score][current_frame]+bowling_frames[current_roll_score][current_frame]
-                bowling_frames[cumulative_frame_score][current_frame] = bowling_frames[cumulative_frame_score][last_frame] + bowling_frames[frame_roll_score][current_frame]
-                BowlingGame.check_spare_strike_last_frame(current_frame,current_roll_score,bowling_frames)
+                    roll_number = 0
+                    frame_number += 1
 
                 return True
+
+            elif (roll_number == 1):
+
+                BowlingGame.compute_bonuses(self)
+
+                bowling_frames[frame_score_index][frame_number] = bowling_frames[frame_score_index][frame_number - 1] + \
+                                                                  bowling_frames[roll_number - 1][frame_number] + \
+                                                                  bowling_frames[roll_number][frame_number]
+
+                frame_number += 1
+                roll_number = 0  # Reset Roll number
+
             else:
                 return False
-
 
         else:
             return False
 
-    def get_score(current_frame):
-        print(bowling_frames[cumulative_frame_score][current_frame])
-        return bowling_frames[cumulative_frame_score][current_frame]
+    def compute_bonuses(self):
+
+        if (bowling_frames[roll_number - 1][frame_number - 1] == 10):  # Strike in previous frame
+
+            BowlingGame.compute_double_strike_bonus(self)
+
+            bowling_frames[frame_score_index][frame_number - 1] = bowling_frames[frame_score_index][frame_number - 1] + \
+                                                                  bowling_frames[roll_number - 1][frame_number] + \
+                                                                  bowling_frames[roll_number][frame_number]
+
+        elif (bowling_frames[roll_number - 1][frame_number - 1] + bowling_frames[roll_number][
+            frame_number - 1] == 10):  # Spare in previous frame
+
+            bowling_frames[frame_score_index][frame_number - 1] = bowling_frames[frame_score_index][frame_number - 1] + \
+                                                                  bowling_frames[roll_number - 1][frame_number]
+
+    def compute_double_strike_bonus(self):
+
+        if (bowling_frames[roll_number - 1][frame_number - 2] == 10):
+            bowling_frames[frame_score_index][frame_number - 2] = bowling_frames[frame_score_index][frame_number - 2] + \
+                                                                  bowling_frames[roll_number - 1][frame_number]
+            bowling_frames[frame_score_index][frame_number - 1] = bowling_frames[frame_score_index][frame_number - 2] + \
+                                                                  bowling_frames[roll_number - 1][frame_number - 1]
+
+    def fetch_framescore(self, frame):
+        if (frame <= 10):
+            return bowling_frames[frame_score_index][frame - 1]
+        else:
+            return False
 
