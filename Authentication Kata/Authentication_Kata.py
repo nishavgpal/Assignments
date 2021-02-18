@@ -1,24 +1,32 @@
+from DBoperations import DBoperations
 import re
-class Initialization:
-    def __init__(self):
-        self.credentials = {}
+
+
+credentials = {}
+
+
 
 
 
 class Login:
     def check(self, user, pas):
 
-        i.credentials["test"]="test12"
-        if user in i.credentials.keys() and pas == i.credentials[user]:
+        #i.credentials["test"]="test12"
+        if user in credentials.keys() and pas == credentials[user]:
             return True
         else:
             print('Wrong Username or Password')
             return False
 
 
-class Register:
+class Register():
 
-    def stringvalidation(self, name):
+
+   # def __init__(self, DBoperations=None):
+     #   self._DBoperations = DBoperations or DBoperations()
+
+
+    def user_name_validation(self, name):
 
         if name.isalpha():
             return True
@@ -27,7 +35,7 @@ class Register:
 
 
 
-    def pwdvalidation(self, password):
+    def password_validation(self, password):
         flag = True
         if (len(password) <= 6):
             flag = False
@@ -44,17 +52,22 @@ class Register:
 
     def register (self,name,password):
 
-            i.credentials[name] = password
+            if (Register.user_name_validation(self,name)==True and Register.password_validation(self,password)==True):
+                DBoperations.db_call_register(self,name,password)
+                return True
+            else:
+                return False
 
 
 
-i = Initialization()
 s = Login()
-r = Register()
+#r = Register()
 Stop = False
 user_check = True
 
+
 """
+
 while Stop == False:
     tasks = (input('What would you like to do? enter [Register], [Login], or [quit]'))
     # Calling functions with that class object
