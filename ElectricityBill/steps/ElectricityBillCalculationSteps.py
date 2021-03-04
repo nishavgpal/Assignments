@@ -1,18 +1,28 @@
 from behave import *
+from ElectricityBill import ElectricityBillCalculation
 
 use_step_matcher("re")
 
-
-@given("I consumed (?P<units>.+) units in a month")
-def step_impl(context, units):
-    raise NotImplementedError(u'STEP: Given I consumed <units> units in a month')
+object_bill = ElectricityBillCalculation.ElectricityBill()
 
 
-@when("the state ABC electricity bill gets generated")
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When the state ABC electricity bill gets generated')
+class energy_charge_slabwise_step_definitions:
 
 
-@then("the total energy charges as amounted to Rs\.(?P<slab1total>.+)")
-def step_impl(context, slab1total):
-    raise NotImplementedError(u'STEP: Then the total energy charges as amounted to Rs.<slab1total>')
+    @given("I consumed (?P<units>.+) units in a month")
+    def step_impl1(context, units):
+        object_bill.set_units(units)
+
+
+    @when("the state ABC electricity bill gets generated")
+    def step_impl2(context):
+        object_bill.calculate_slab1_total()
+
+
+    @then("the total energy charges as amounted to Rs\.(?P<slab1total>.+)")
+
+    def step_impl3(context, slab1total):
+
+        Bill_Total = object_bill.get_energy_charges()
+        if(Bill_Total==slab1total):
+            print("Electricity Bill is",Bill_Total)
