@@ -1,12 +1,17 @@
 from behave import *
-from ElectricityBill import ElectricityBillCalculation
+from unittest import TestCase
+
+from self import self
+
+import ElectricityBillCalculation
+
 
 use_step_matcher("re")
 
 object_bill = ElectricityBillCalculation.ElectricityBill()
 
 
-class energy_charge_slabwise_step_definitions:
+class energy_charge_slabwise_step_definitions(TestCase):
 
 
     @given("I consumed (?P<units>.+) units in a month")
@@ -21,8 +26,19 @@ class energy_charge_slabwise_step_definitions:
 
     @then("the total energy charges as amounted to Rs\.(?P<slab1total>.+)")
 
-    def step_impl3(context, slab1total):
-
+    def step_impl3(context,slab1total):
+        total_charges_input= slab1total
         Bill_Total = object_bill.get_energy_charges()
-        if(Bill_Total==slab1total):
-            print("Electricity Bill is",Bill_Total)
+        #print(total_charges_input,Bill_Total)
+
+        TestCase.assertEqual(TestCase,total_charges_input,Bill_Total)
+        """if(float(total_charges_input) == float(Bill_Total)):
+            print("feature example",total_charges_input,"methodcalculated charges",Bill_Total)
+        else:
+            print("Slabcharges provided incorrect")"""
+
+
+
+
+
+

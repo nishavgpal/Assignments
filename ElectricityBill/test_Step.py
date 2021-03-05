@@ -16,4 +16,8 @@ class Test(TestCase):
         ElectricityBill.set_units(self, 51)
         Bill_Total = ElectricityBill.calculate_slab1_total(self)
         self.assertEqual(Bill_Total, "Upcoming feature")
+    def test_wrong_slab_charges(self):
+        ElectricityBill.set_units(self, 10)
+        Bill_Total = ElectricityBill.calculate_slab1_total(self)
+        self.assertTrue(Bill_Total == 39, True)
 

@@ -14,3 +14,5 @@ Scenario Outline:Calculate the Energy Charges for the Domestic Electricity Consu
               | 1     | 4.05       |
               | 40    | 162.00     |
               | 50    | 202.50     |
+              | 10    | 39         |
+
